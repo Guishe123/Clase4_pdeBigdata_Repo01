@@ -1,7 +1,7 @@
 *.xls
 *.xlsx
-*.csv
+*.doc
 *.zip
 *.tar
 *.rar
-*.doc
+*.csv
