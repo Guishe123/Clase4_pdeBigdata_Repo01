@@ -109,8 +109,18 @@ unique(fallecidos$AÑO)
 unique(fallecidos$MES)
 
 
-####   #####
+#### sE UTILIZA LA FUNCON TABLE PARA EL CONTADOR DE LOS FALLECIDOS POR CATEGORIAS #####
 
+table(fallecidos$SEXO, useNA = "ifany")
+
+### Vamoa agrupar por categorias las muertes por cada año por ende usamos la funcion agregate###
+
+conteo_sexo_año <- aggregate(cbind(Masculino = fallecidos$SEXO == "MASCULINO",
+                                   Femenino = fallecidos$SEXO == "FEMENINO",
+                                   Indeterminado = fallecidos$SEXO == "INDETERMINADO",
+                                   SinRegistro = fallecidos$SEXO == "SIN REGISTRO"),
+                             by = list(año = fallecidos$AÑO),
+                             FUN = sum)
 
 
 
