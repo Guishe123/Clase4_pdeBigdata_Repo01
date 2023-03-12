@@ -72,3 +72,46 @@ ggsave(filename = paste0(wd$outputs, "mapaPeru_centroide.png"),
        width =8.5,
        height = 11)
 
+#### CargaremoS la informacion del dataset del trabajo del SINADEF ####
+
+fallecidos <- read.csv(paste0(wd$datasets,"fallecidos_sinadef.csv"), sep = "|")
+
+#### Impresion de las columnas de la data set.
+
+colnames(fallecidos)
+
+
+#### Lista de columnas con la que se va a trabajar con la dataset ####
+
+
+datos_seleccionados <- fallecidos[,c(3,4,6,11,15,16)]
+
+
+#### Lista de Sexo ####
+unique(fallecidos$SEXO)
+
+#### Lista de edades ####
+
+unique(fallecidos$EDAD)
+
+### Lista de  Estado Civil ####
+unique(fallecidos$ESTADO.CIVIL)
+
+
+#### Lista de Departamento ####
+unique(fallecidos$DEPARTAMENTO.DOMICILIO)
+
+#### Lista de Año ####
+
+unique(fallecidos$AÑO)
+#### Lista de Mes ###
+
+unique(fallecidos$MES)
+
+
+####   #####
+
+
+
+
+
