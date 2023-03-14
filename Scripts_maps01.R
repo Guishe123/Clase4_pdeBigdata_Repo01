@@ -122,21 +122,36 @@ conteo_sexo_año <- aggregate(cbind(Masculino = fallecidos$SEXO == "MASCULINO",
                              by = list(año = fallecidos$AÑO),
                              FUN = sum)
 
+# Creamos el gráfico de pastel
 fallecidos <- subset(fallecidos, select=c("SEXO", "AÑO"))
 
-# Creamos el gráfico de pastel
+
 ggplot(fallecidos, aes(x="", fill=SEXO)) + 
   geom_bar(width = 8, stat = "count") +
   coord_polar("y", start=0) +
   labs(title="Relación de Muertes por Año y Categoria", fill="SEXO") +
   theme_void() +
-  theme(legend.position = "bottom") # las etiquetas estan de la decripcion esten en la pate inferio.
-########################################################
-ggplot(fallecidos, aes(x = SEXO, y = AÑO, fill = SEXO)) +
-  geom_bar(width = 1,stat = "identity") +
-  ggtitle("Relación de Muerte por Año y Categorias") +
-  xlab("Categorias") +
-  ylab("AÑO") +
-  scale_fill_manual(values = c("gray", "blue", "green", "red"))
+  theme(legend.position = "bottom") # Etiquetas parte inferior
 
 
+# Guardamos en el dsico duro.
+ ggsave(filename = file.path(wd$outputs, "Paastel Relacion Muertes por Año y categoria.png"),
+        width = 8.5,
+        height = 11)
+
+## Se realizara un grafio de barras de la relacion entre estado civil y edades.
+ 
+ library(dplyr)
+ library(ggplot2)
+ df_tabla <- fallecidos %>% count(ESTADO.CIVIL, EDAD)
+ ggplot(df_tabla, aes(x = EDAD, y = n, fill = ESTADO.CIVIL)) +
+   geom_bar(stat = "identity", position = "dodge") +
+   labs(x = "EDAD", y = "Frecuencia", fill = "Estado Civil")
+
+ # guadar en el disco
+ 
+ ggsave(filename = paste0(wd$outputs, "Grafico de Barras de Estados civil y Edades grafico.png"),
+        width = 8.5,
+        height = 11)
+ 
+ ### Aqui se realiza un group by para
