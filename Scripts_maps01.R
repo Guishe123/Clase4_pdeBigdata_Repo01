@@ -154,4 +154,25 @@ ggplot(fallecidos, aes(x="", fill=SEXO)) +
         width = 8.5,
         height = 11)
  
- ### Aqui se realiza un group by para
+ ### Aqui se realiza un group by para Estados,departamento,año y mes.
+ 
+ 
+ library(dplyr)
+ library(ggplot2)
+ 
+ # Agrupar y resumir los datos
+ df_resumen <- fallecidos %>% 
+   group_by(DEPARTAMENTO.DOMICILIO, AÑO, MES, ESTADO.CIVIL) %>% 
+   summarize(FRECUENCIA = n())
+ 
+ # Graficar los datos
+ ggplot(df_resumen, aes(x = MES, y = FRECUENCIA, fill = ESTADO.CIVIL)) +
+   geom_bar(stat = "identity", position = "dodge") +
+   facet_grid(rows = vars(AÑO), cols = vars(DEPARTAMENTO.DOMICILIO)) +
+   labs(x = "Mes", y = "Frecuencia", fill = "Estado Civil")
+ 
+ #Guardar en el disco
+ 
+ ggsave(filename = file.path(wd$outputs, "Grafico de 4 atributos AÑO.png"),
+        width = 15,
+        height = 6)
