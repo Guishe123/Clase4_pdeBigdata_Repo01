@@ -122,6 +122,21 @@ conteo_sexo_año <- aggregate(cbind(Masculino = fallecidos$SEXO == "MASCULINO",
                              by = list(año = fallecidos$AÑO),
                              FUN = sum)
 
+fallecidos <- subset(fallecidos, select=c("SEXO", "AÑO"))
 
+# Creamos el gráfico de pastel
+ggplot(fallecidos, aes(x="", fill=SEXO)) + 
+  geom_bar(width = 8, stat = "count") +
+  coord_polar("y", start=0) +
+  labs(title="Relación de Muertes por Año y Categoria", fill="SEXO") +
+  theme_void() +
+  theme(legend.position = "bottom") # las etiquetas estan de la decripcion esten en la pate inferio.
+########################################################
+ggplot(fallecidos, aes(x = SEXO, y = AÑO, fill = SEXO)) +
+  geom_bar(width = 1,stat = "identity") +
+  ggtitle("Relación de Muerte por Año y Categorias") +
+  xlab("Categorias") +
+  ylab("AÑO") +
+  scale_fill_manual(values = c("gray", "blue", "green", "red"))
 
 
